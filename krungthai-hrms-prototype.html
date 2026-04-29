@@ -493,24 +493,7 @@ body {
 .device-frame.mobile .top-bar-user-name { display: none; }
 
 /* Module close button */
-.module-close-btn {
-  display: none;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: var(--kt-gray-200);
-  border-radius: var(--radius-full);
-  color: var(--kt-gray-600);
-  font-size: 14px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-}
 
-.module-close-btn:hover { background: var(--kt-danger); color: white; }
-
-body.module-active .module-close-btn { display: flex; }
 
 /* ═══════════════════════════════════════════════════
    SCROLLABLE CONTENT
@@ -947,10 +930,21 @@ body.module-active .module-close-btn { display: flex; }
   padding: 0 10px;
   padding-bottom: 10px;
   z-index: 200;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .device-frame.mobile .mobile-tabbar { display: flex; }
 .device-frame.desktop .mobile-tabbar { display: none !important; }
+
+.mobile-tabbar.module-tabbar {
+  background: white;
+  border-top: none;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0 6px;
+  padding-bottom: 10px;
+}
 
 .tab-item {
   display: flex;
@@ -971,6 +965,286 @@ body.module-active .module-close-btn { display: flex; }
 
 .tab-item.active i { color: var(--kt-blue); }
 .tab-item.active span { color: var(--kt-blue); font-weight: 700; }
+
+.module-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  border: none;
+  background: none;
+  font-family: 'Sarabun', sans-serif;
+  position: relative;
+}
+
+.module-tab-item i { font-size: 18px; color: var(--kt-gray-400); transition: var(--transition); }
+.module-tab-item span { font-size: 9px; font-weight: 500; color: var(--kt-gray-400); transition: var(--transition); }
+
+.module-tab-item.active i { color: var(--kt-blue); }
+.module-tab-item.active span { color: var(--kt-blue); font-weight: 700; }
+
+.module-tab-item .mtab-badge {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--kt-danger);
+  border-radius: var(--radius-full);
+  font-size: 9px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.module-tab-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--kt-gray-100);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-right: 4px;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--kt-gray-500);
+}
+
+.module-tab-home:hover { background: var(--kt-gray-200); }
+
+.module-tab-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--kt-gray-200);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE MODULE OVERLAY (Slide Up)
+   ═══════════════════════════════════════════════════ */
+
+.mobile-module-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--kt-gray-50);
+  z-index: 150;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-module-overlay.slide-up {
+  transform: translateY(0);
+}
+
+.mobile-module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: white;
+  border-bottom: 1px solid var(--kt-gray-200);
+  flex-shrink: 0;
+}
+
+.mobile-module-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-module-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+}
+
+.mobile-module-header-title { font-size: 18px; font-weight: 700; color: var(--kt-gray-800); }
+.mobile-module-header-subtitle { font-size: 12px; color: var(--kt-gray-400); }
+
+.mobile-module-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--kt-gray-100);
+  border-radius: var(--radius-full);
+  color: var(--kt-gray-600);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.mobile-module-close:hover { background: var(--kt-danger); color: white; }
+
+.mobile-module-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 90px;
+}
+
+.mobile-module-scroll::-webkit-scrollbar { width: 4px; }
+.mobile-module-scroll::-webkit-scrollbar-track { background: transparent; }
+.mobile-module-scroll::-webkit-scrollbar-thumb { background: var(--kt-gray-300); border-radius: 4px; }
+
+/* Hide overlay on desktop */
+.device-frame.desktop .mobile-module-overlay { display: none; }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE ACTION SHEET (More Menu)
+   ═══════════════════════════════════════════════════ */
+
+.mobile-action-sheet-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.mobile-action-sheet-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-action-sheet {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 20px;
+  z-index: 310;
+  transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 70%;
+}
+
+.mobile-action-sheet.open {
+  bottom: 0;
+}
+
+.action-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--kt-gray-300);
+  border-radius: var(--radius-full);
+  margin: 0 auto 16px;
+}
+
+.action-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.action-sheet-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-sheet-title i {
+  font-size: 20px;
+  color: var(--kt-blue);
+}
+
+.action-sheet-title span {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--kt-gray-800);
+}
+
+.action-sheet-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--kt-gray-100);
+  border-radius: var(--radius-full);
+  color: var(--kt-gray-600);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.action-sheet-close:hover { background: var(--kt-danger); color: white; }
+
+.action-sheet-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-sheet-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  background: none;
+  font-family: 'Sarabun', sans-serif;
+  text-align: left;
+  width: 100%;
+}
+
+.action-sheet-menu-item:hover { background: var(--kt-gray-100); }
+
+.action-sheet-menu-item i {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  color: var(--kt-gray-500);
+}
+
+.action-sheet-menu-item .menu-text {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--kt-gray-700);
+}
+
+.action-sheet-menu-item .menu-badge {
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--kt-blue);
+  color: white;
+}
 
 /* ═══════════════════════════════════════════════════
    MOBILE ACTION SHEET (Module Contextual Menu)
@@ -1348,9 +1622,6 @@ body.module-active .module-close-btn { display: flex; }
         <!-- Top Bar -->
         <div class="top-bar" id="top-bar">
           <div class="top-bar-module">
-            <button class="module-close-btn" id="module-close-btn" onclick="goHome()">
-              <i class="fas fa-times"></i>
-            </button>
             <div class="top-bar-module" id="top-bar-info">
               <div>
                 <div class="module-title" id="top-module-title">สวัสดี สมชาย 👋</div>
@@ -1432,23 +1703,23 @@ body.module-active .module-close-btn { display: flex; }
               เมนูหลัก
             </div>
             <div class="module-shortcuts animate-in animate-in-delay-3">
-              <button class="shortcut-item" onclick="navigateTo('leave')">
+              <button class="shortcut-item" onclick="openModule('leave')">
                 <div class="shortcut-icon sc-leave"><i class="fas fa-calendar-check"></i></div>
                 <span class="shortcut-label">ลางาน</span>
               </button>
-              <button class="shortcut-item" onclick="navigateTo('expense')">
+              <button class="shortcut-item" onclick="openModule('expense')">
                 <div class="shortcut-icon sc-expense"><i class="fas fa-wallet"></i></div>
                 <span class="shortcut-label">เบิกจ่าย</span>
               </button>
-              <button class="shortcut-item" onclick="navigateTo('training')">
+              <button class="shortcut-item" onclick="openModule('training')">
                 <div class="shortcut-icon sc-training"><i class="fas fa-graduation-cap"></i></div>
                 <span class="shortcut-label">อบรม</span>
               </button>
-              <button class="shortcut-item" onclick="navigateTo('km')">
+              <button class="shortcut-item" onclick="openModule('km')">
                 <div class="shortcut-icon sc-km"><i class="fas fa-book-open"></i></div>
                 <span class="shortcut-label">สาระน่ารู้</span>
               </button>
-              <button class="shortcut-item" onclick="navigateTo('profile')">
+              <button class="shortcut-item" onclick="openModule('profile')">
                 <div class="shortcut-icon sc-profile"><i class="fas fa-user-circle"></i></div>
                 <span class="shortcut-label">โปรไฟล์</span>
               </button>
@@ -1524,6 +1795,153 @@ body.module-active .module-close-btn { display: flex; }
                   <button class="community-action-btn"><i class="far fa-heart"></i> 42</button>
                   <button class="community-action-btn"><i class="far fa-comment"></i> 15</button>
                   <button class="community-action-btn"><i class="far fa-share-square"></i> แชร์</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOME SUB-PAGES -->
+          <div class="page-module" id="page-phonebook">
+            <div class="page-home" style="padding:20px;">
+              <div class="section-title animate-in">
+                <span>สมุดโทรศัพท์</span>
+              </div>
+              <div style="background:white;border-radius:var(--radius-lg);padding:14px;margin-bottom:16px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:10px;">
+                <i class="fas fa-search" style="color:var(--kt-gray-400);font-size:14px;"></i>
+                <input type="text" placeholder="ค้นหารายชื่อพนักงาน..." style="border:none;outline:none;font-family:'Sarabun',sans-serif;font-size:14px;width:100%;color:var(--kt-gray-700);">
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--kt-gray-400);padding:8px 0;text-transform:uppercase;letter-spacing:1px;">สาขาสีลม</div>
+              <div class="module-content-card animate-in animate-in-delay-1" style="margin-bottom:12px;">
+                <div class="content-list-item" style="padding:10px 0;">
+                  <div style="width:40px;height:40px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--kt-blue),var(--kt-blue-light));display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;">วิ</div>
+                  <div class="content-list-info"><div class="title">วิภา สุขสันต์</div><div class="subtitle">เจ้าหน้าที่ • สาขาสีลม</div></div>
+                  <button style="border:none;background:var(--kt-gray-100);width:34px;height:34px;border-radius:var(--radius-full);cursor:pointer;color:var(--kt-blue);font-size:14px;"><i class="fas fa-phone"></i></button>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;">
+                  <div style="width:40px;height:40px;border-radius:var(--radius-full);background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;">ธ</div>
+                  <div class="content-list-info"><div class="title">ธนา พงษ์พานิช</div><div class="subtitle">ผู้จัดการ • สาขาสีลม</div></div>
+                  <button style="border:none;background:var(--kt-gray-100);width:34px;height:34px;border-radius:var(--radius-full);cursor:pointer;color:var(--kt-blue);font-size:14px;"><i class="fas fa-phone"></i></button>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;">
+                  <div style="width:40px;height:40px;border-radius:var(--radius-full);background:linear-gradient(135deg,#EC4899,#F472B6);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;">มา</div>
+                  <div class="content-list-info"><div class="title">มาลี วงศ์ดี</div><div class="subtitle">เจ้าหน้าที่ • สาขาสีลม</div></div>
+                  <button style="border:none;background:var(--kt-gray-100);width:34px;height:34px;border-radius:var(--radius-full);cursor:pointer;color:var(--kt-blue);font-size:14px;"><i class="fas fa-phone"></i></button>
+                </div>
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--kt-gray-400);padding:8px 0;text-transform:uppercase;letter-spacing:1px;">สาขาเซ็นทรัล</div>
+              <div class="module-content-card animate-in animate-in-delay-2">
+                <div class="content-list-item" style="padding:10px 0;">
+                  <div style="width:40px;height:40px;border-radius:var(--radius-full);background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;">ปร</div>
+                  <div class="content-list-info"><div class="title">ประเสริฐ ศรีสุข</div><div class="subtitle">ผู้จัดการ • สาขาเซ็นทรัล</div></div>
+                  <button style="border:none;background:var(--kt-gray-100);width:34px;height:34px;border-radius:var(--radius-full);cursor:pointer;color:var(--kt-blue);font-size:14px;"><i class="fas fa-phone"></i></button>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;">
+                  <div style="width:40px;height:40px;border-radius:var(--radius-full);background:linear-gradient(135deg,#8B5CF6,#A78BFA);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;flex-shrink:0;">สุ</div>
+                  <div class="content-list-info"><div class="title">สุภาพร เจริญสุข</div><div class="subtitle">เจ้าหน้าที่ • สาขาเซ็นทรัล</div></div>
+                  <button style="border:none;background:var(--kt-gray-100);width:34px;height:34px;border-radius:var(--radius-full);cursor:pointer;color:var(--kt-blue);font-size:14px;"><i class="fas fa-phone"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-module" id="page-notification">
+            <div class="page-home" style="padding:20px;">
+              <div class="section-title animate-in">
+                <span>การแจ้งเตือน</span>
+                <span class="see-all">อ่านทั้งหมด</span>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-1" style="margin-bottom:12px;border-left:3px solid var(--kt-info);">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:4px 0;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-full);background:#EFF6FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-calendar-check" style="color:#3B82F6;font-size:14px;"></i></div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">ใบลาได้รับอนุมัติ</div>
+                    <div style="font-size:13px;color:var(--kt-gray-500);margin-top:2px;">ใบลาพักร้อน 15-17 พ.ค. ของคุณได้รับอนุมัติแล้ว</div>
+                    <div style="font-size:11px;color:var(--kt-gray-400);margin-top:4px;">10 นาทีที่แล้ว</div>
+                  </div>
+                  <div style="width:8px;height:8px;border-radius:var(--radius-full);background:var(--kt-info);flex-shrink:0;margin-top:6px;"></div>
+                </div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-2" style="margin-bottom:12px;border-left:3px solid var(--kt-warning);">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:4px 0;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-full);background:#FFF7ED;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-wallet" style="color:#F59E0B;font-size:14px;"></i></div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">เบิกค่าเดินทาง รออนุมัติ</div>
+                    <div style="font-size:13px;color:var(--kt-gray-500);margin-top:2px;">ใบเบิก ฿3,500 ของคุณกำลังรอหัวหน้าอนุมัติ</div>
+                    <div style="font-size:11px;color:var(--kt-gray-400);margin-top:4px;">1 ชั่วโมงที่แล้ว</div>
+                  </div>
+                  <div style="width:8px;height:8px;border-radius:var(--radius-full);background:var(--kt-warning);flex-shrink:0;margin-top:6px;"></div>
+                </div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-3" style="margin-bottom:12px;border-left:3px solid var(--kt-success);">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:4px 0;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-full);background:#ECFDF5;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-graduation-cap" style="color:#10B981;font-size:14px;"></i></div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">คอร์สอบรมใหม่</div>
+                    <div style="font-size:13px;color:var(--kt-gray-500);margin-top:2px;">Cyber Security Awareness เปิดรับสมัครแล้ว</div>
+                    <div style="font-size:11px;color:var(--kt-gray-400);margin-top:4px;">3 ชั่วโมงที่แล้ว</div>
+                  </div>
+                </div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-4" style="margin-bottom:12px;border-left:3px solid var(--kt-danger);">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:4px 0;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-full);background:#FEF2F2;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-times-circle" style="color:#EF4444;font-size:14px;"></i></div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">เบิกค่าอาหาร ไม่อนุมัติ</div>
+                    <div style="font-size:13px;color:var(--kt-gray-500);margin-top:2px;">ใบเบิก ฿1,800 ถูกปฏิเสธ กรุณาตรวจสอบเอกสาร</div>
+                    <div style="font-size:11px;color:var(--kt-gray-400);margin-top:4px;">1 วันที่แล้ว</div>
+                  </div>
+                </div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-4" style="margin-bottom:12px;border-left:3px solid var(--kt-gray-300);">
+                <div style="display:flex;align-items:flex-start;gap:12px;padding:4px 0;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--kt-gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-bullhorn" style="color:var(--kt-gray-500);font-size:14px;"></i></div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:600;color:var(--kt-gray-500);">ประกาศ: วันหยุดพิเศษ</div>
+                    <div style="font-size:13px;color:var(--kt-gray-400);margin-top:2px;">ธนาคารประกาศวันหยุดเพิ่มเติมเดือนพฤษภาคม</div>
+                    <div style="font-size:11px;color:var(--kt-gray-400);margin-top:4px;">2 วันที่แล้ว</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-module" id="page-profiletab">
+            <div class="page-home" style="padding:20px;">
+              <div style="text-align:center;padding:20px 0 24px;">
+                <div style="width:72px;height:72px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--kt-gold),var(--kt-gold-light));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--kt-blue-dark);margin:0 auto 12px;">SN</div>
+                <div style="font-size:20px;font-weight:700;color:var(--kt-gray-800);">สมชาย ใจดี</div>
+                <div style="font-size:13px;color:var(--kt-gray-400);margin-top:2px;">เจ้าหน้าที่ธนาคาร • สาขาสีลม</div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-1" style="margin-bottom:12px;">
+                <div class="content-card-header"><div class="content-card-title">ข้อมูลส่วนตัว</div><span class="see-all" style="font-size:13px;color:var(--kt-blue);cursor:pointer">แก้ไข</span></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                  <div><div style="font-size:12px;color:var(--kt-gray-400)">รหัสพนักงาน</div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700)">KT-20240158</div></div>
+                  <div><div style="font-size:12px;color:var(--kt-gray-400)">ตำแหน่ง</div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700)">เจ้าหน้าที่ธนาคาร</div></div>
+                  <div><div style="font-size:12px;color:var(--kt-gray-400)">อีเมล</div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700)">somchai@krungthai.com</div></div>
+                  <div><div style="font-size:12px;color:var(--kt-gray-400)">เข้าทำงาน</div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700)">1 ม.ค. 2567</div></div>
+                </div>
+              </div>
+              <div class="module-content-card animate-in animate-in-delay-2" style="margin-bottom:12px;">
+                <div class="content-card-header"><div class="content-card-title">เมนูทั่วไป</div></div>
+                <div class="content-list-item" style="padding:10px 0;cursor:pointer;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--kt-gray-100);display:flex;align-items:center;justify-content:center;"><i class="fas fa-file-alt" style="color:var(--kt-gray-500);font-size:14px;"></i></div>
+                  <div class="content-list-info"><div class="title">เอกสารของฉัน</div></div>
+                  <i class="fas fa-chevron-right" style="color:var(--kt-gray-300);font-size:12px;"></i>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;cursor:pointer;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--kt-gray-100);display:flex;align-items:center;justify-content:center;"><i class="fas fa-chart-bar" style="color:var(--kt-gray-500);font-size:14px;"></i></div>
+                  <div class="content-list-info"><div class="title">ผลงาน & KPI</div></div>
+                  <i class="fas fa-chevron-right" style="color:var(--kt-gray-300);font-size:12px;"></i>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;cursor:pointer;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--kt-gray-100);display:flex;align-items:center;justify-content:center;"><i class="fas fa-cog" style="color:var(--kt-gray-500);font-size:14px;"></i></div>
+                  <div class="content-list-info"><div class="title">ตั้งค่า</div></div>
+                  <i class="fas fa-chevron-right" style="color:var(--kt-gray-300);font-size:12px;"></i>
+                </div>
+                <div class="content-list-item" style="padding:10px 0;cursor:pointer;">
+                  <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#FEF2F2;display:flex;align-items:center;justify-content:center;"><i class="fas fa-sign-out-alt" style="color:var(--kt-danger);font-size:14px;"></i></div>
+                  <div class="content-list-info"><div class="title" style="color:var(--kt-danger);">ออกจากระบบ</div></div>
+                  <i class="fas fa-chevron-right" style="color:var(--kt-gray-300);font-size:12px;"></i>
                 </div>
               </div>
             </div>
@@ -1858,28 +2276,53 @@ body.module-active .module-close-btn { display: flex; }
 
         </div>
 
-        <!-- Mobile Tab Bar -->
+        <!-- Mobile Tab Bar (Home) -->
         <div class="mobile-tabbar" id="mobile-tabbar">
-          <button class="tab-item active" data-tab="home" onclick="navigateTo('home')">
+          <button class="tab-item active" data-tab="home" onclick="switchHomeTab('home')">
             <i class="fas fa-home"></i>
             <span>หน้าหลัก</span>
           </button>
-          <button class="tab-item" data-tab="leave" onclick="navigateTo('leave')">
-            <i class="fas fa-calendar-check"></i>
-            <span>ลางาน</span>
+          <button class="tab-item" data-tab="phonebook" onclick="switchHomeTab('phonebook')">
+            <i class="fas fa-address-book"></i>
+            <span>สมุดโทรศัพท์</span>
           </button>
-          <button class="tab-item" data-tab="expense" onclick="navigateTo('expense')">
-            <i class="fas fa-wallet"></i>
-            <span>เบิกจ่าย</span>
+          <button class="tab-item" data-tab="notification" onclick="switchHomeTab('notification')">
+            <i class="fas fa-bell"></i>
+            <span>แจ้งเตือน</span>
           </button>
-          <button class="tab-item" data-tab="training" onclick="navigateTo('training')">
-            <i class="fas fa-graduation-cap"></i>
-            <span>อบรม</span>
+          <button class="tab-item" data-tab="profiletab" onclick="switchHomeTab('profiletab')">
+            <i class="fas fa-user-circle"></i>
+            <span>โปรไฟล์</span>
           </button>
-          <button class="tab-item" data-tab="more" onclick="openActionSheet()">
-            <i class="fas fa-ellipsis-h"></i>
-            <span>เพิ่มเติม</span>
+        </div>
+
+        <!-- Mobile Module Overlay (slides up) -->
+        <div class="mobile-module-overlay" id="mobile-module-overlay">
+          <div class="mobile-module-header">
+            <div class="mobile-module-header-left">
+              <div class="mobile-module-header-icon" id="mobile-overlay-icon"><i class="fas fa-calendar-check"></i></div>
+              <div>
+                <div class="mobile-module-header-title" id="mobile-overlay-title">ลางาน</div>
+                <div class="mobile-module-header-subtitle" id="mobile-overlay-subtitle">จัดการการลางานของคุณ</div>
+              </div>
+            </div>
+            <button class="mobile-module-close" onclick="closeModule()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="mobile-module-scroll" id="mobile-module-scroll">
+            <!-- Module content injected here -->
+          </div>
+        </div>
+
+        <!-- Mobile Module Contextual Tabbar (shown when module is open) -->
+        <div class="mobile-tabbar module-tabbar" id="mobile-module-tabbar" style="display:none;">
+          <button class="module-tab-home" onclick="closeModule()">
+            <i class="fas fa-home"></i>
           </button>
+          <div class="module-tab-divider"></div>
+          <!-- Dynamic module tabs injected here -->
+          <div id="module-tab-items" style="display:flex;align-items:center;gap:0;flex:1;justify-content:space-around;"></div>
         </div>
 
         <!-- Mobile Action Sheet Overlay -->
@@ -1898,16 +2341,16 @@ body.module-active .module-close-btn { display: flex; }
             </button>
           </div>
           <div class="action-sheet-menu">
-            <button class="action-sheet-menu-item" onclick="navigateTo('km'); closeActionSheet();">
+            <button class="action-sheet-menu-item" onclick="openModule('km'); closeActionSheet();">
               <i class="fas fa-book-open"></i>
               <span class="menu-text">สาระน่ารู้ (KM)</span>
               <span class="menu-badge">5</span>
             </button>
-            <button class="action-sheet-menu-item" onclick="navigateTo('profile'); closeActionSheet();">
+            <button class="action-sheet-menu-item" onclick="openModule('profile'); closeActionSheet();">
               <i class="fas fa-user-circle"></i>
               <span class="menu-text">โปรไฟล์</span>
             </button>
-            <button class="action-sheet-menu-item" onclick="navigateTo('home'); closeActionSheet();">
+            <button class="action-sheet-menu-item" onclick="closeActionSheet();">
               <i class="fas fa-tasks"></i>
               <span class="menu-text">To-Do List</span>
               <span class="menu-badge">7</span>
@@ -1934,90 +2377,78 @@ const moduleConfig = {
     title: 'สวัสดี สมชาย 👋',
     subtitle: '29 เมษายน 2569',
     icon: 'fas fa-home',
+    iconBg: 'linear-gradient(135deg, var(--kt-blue), var(--kt-blue-light))',
     color: 'var(--kt-blue)',
-    tabs: null,
-    ctxTitle: 'หน้าหลัก',
-    ctxIcon: 'fas fa-home',
-    ctxItems: [
-      { icon: 'fas fa-plus-circle', text: 'ยื่นใบลาใหม่', badge: '1', page: 'leave' },
-      { icon: 'fas fa-receipt', text: 'ยื่นเบิกใหม่', page: 'expense' },
-      { icon: 'fas fa-search', text: 'ค้นหาคอร์สอบรม', page: 'training' },
-      { icon: 'fas fa-pen-fancy', text: 'เขียนบทความ', page: 'km' }
-    ]
+    tabs: null
   },
   leave: {
     title: 'ลางาน',
     subtitle: 'จัดการการลางานของคุณ',
     icon: 'fas fa-calendar-check',
+    iconBg: 'linear-gradient(135deg, #3B82F6, #60A5FA)',
     color: '#3B82F6',
     tabs: ['ยื่นใบลา', 'ประวัติลา', 'สรุปวันลา', 'อนุมัติใบลา'],
-    ctxTitle: 'เมนูลางาน',
-    ctxIcon: 'fas fa-calendar-check',
-    ctxItems: [
-      { icon: 'fas fa-plus-circle', text: 'ยื่นใบลาใหม่', page: 'leave' },
-      { icon: 'fas fa-history', text: 'ประวัติการลา', page: 'leave' },
-      { icon: 'fas fa-chart-pie', text: 'สรุปวันลาคงเหลือ', page: 'leave' },
-      { icon: 'fas fa-clipboard-check', text: 'อนุมัติใบลา', badge: '2', page: 'leave' }
+    mobileTabs: [
+      { icon: 'fas fa-plus', label: 'ยื่นลา' },
+      { icon: 'fas fa-history', label: 'ประวัติ' },
+      { icon: 'fas fa-chart-pie', label: 'สรุป' },
+      { icon: 'fas fa-check-circle', label: 'อนุมัติ' }
     ]
   },
   expense: {
     title: 'เบิกค่าใช้จ่าย',
     subtitle: 'จัดการการเบิกจ่าย',
     icon: 'fas fa-wallet',
+    iconBg: 'linear-gradient(135deg, #10B981, #34D399)',
     color: '#10B981',
     tabs: ['ยื่นเบิก', 'ติดตามสถานะ', 'สรุปงบ', 'อนุมัติเบิก'],
-    ctxTitle: 'เมนูเบิกจ่าย',
-    ctxIcon: 'fas fa-wallet',
-    ctxItems: [
-      { icon: 'fas fa-plus-circle', text: 'ยื่นเบิกใหม่', page: 'expense' },
-      { icon: 'fas fa-receipt', text: 'ติดตามสถานะ', page: 'expense' },
-      { icon: 'fas fa-chart-bar', text: 'สรุปงบประมาณ', page: 'expense' },
-      { icon: 'fas fa-clipboard-check', text: 'อนุมัติเบิก', badge: '3', page: 'expense' }
+    mobileTabs: [
+      { icon: 'fas fa-plus', label: 'ยื่นเบิก' },
+      { icon: 'fas fa-receipt', label: 'ติดตาม' },
+      { icon: 'fas fa-chart-bar', label: 'สรุปงบ' },
+      { icon: 'fas fa-check-circle', label: 'อนุมัติ' }
     ]
   },
   training: {
     title: 'การอบรม',
     subtitle: 'พัฒนาทักษะของคุณ',
     icon: 'fas fa-graduation-cap',
+    iconBg: 'linear-gradient(135deg, #F59E0B, #FBBF24)',
     color: '#F59E0B',
     tabs: ['ค้นหาคอร์ส', 'ตารางอบรม', 'ใบรับรอง', 'Skill Matrix'],
-    ctxTitle: 'เมนูอบรม',
-    ctxIcon: 'fas fa-graduation-cap',
-    ctxItems: [
-      { icon: 'fas fa-search', text: 'ค้นหาคอร์ส', page: 'training' },
-      { icon: 'fas fa-calendar-alt', text: 'ตารางอบรมของฉัน', page: 'training' },
-      { icon: 'fas fa-certificate', text: 'ใบรับรอง', page: 'training' },
-      { icon: 'fas fa-chart-line', text: 'Skill Matrix', page: 'training' }
+    mobileTabs: [
+      { icon: 'fas fa-search', label: 'ค้นหา' },
+      { icon: 'fas fa-calendar-alt', label: 'ตาราง' },
+      { icon: 'fas fa-certificate', label: 'ใบรับรอง' },
+      { icon: 'fas fa-chart-line', label: 'ทักษะ' }
     ]
   },
   km: {
     title: 'สาระน่ารู้',
     subtitle: 'แชร์ความรู้และเรียนรู้',
     icon: 'fas fa-book-open',
+    iconBg: 'linear-gradient(135deg, #8B5CF6, #A78BFA)',
     color: '#8B5CF6',
     tabs: ['บทความ', 'เอกสาร', 'เขียนบทความ', 'อันดับผู้แชร์'],
-    ctxTitle: 'เมนู KM',
-    ctxIcon: 'fas fa-book-open',
-    ctxItems: [
-      { icon: 'fas fa-pen-fancy', text: 'เขียนบทความ', page: 'km' },
-      { icon: 'fas fa-bookmark', text: 'บันทึกของฉัน', page: 'km' },
-      { icon: 'fas fa-folder-open', text: 'คลังเอกสาร', page: 'km' },
-      { icon: 'fas fa-trophy', text: 'อันดับผู้แชร์', page: 'km' }
+    mobileTabs: [
+      { icon: 'fas fa-newspaper', label: 'บทความ' },
+      { icon: 'fas fa-folder-open', label: 'เอกสาร' },
+      { icon: 'fas fa-pen-fancy', label: 'เขียน' },
+      { icon: 'fas fa-trophy', label: 'อันดับ' }
     ]
   },
   profile: {
     title: 'โปรไฟล์',
     subtitle: 'จัดการข้อมูลส่วนตัว',
     icon: 'fas fa-user-circle',
+    iconBg: 'linear-gradient(135deg, #EC4899, #F472B6)',
     color: '#EC4899',
     tabs: ['ข้อมูลส่วนตัว', 'เอกสาร', 'ผลงาน', 'ตั้งค่า'],
-    ctxTitle: 'เมนูโปรไฟล์',
-    ctxIcon: 'fas fa-user-circle',
-    ctxItems: [
-      { icon: 'fas fa-user-edit', text: 'แก้ไขข้อมูล', page: 'profile' },
-      { icon: 'fas fa-file-alt', text: 'เอกสารส่วนตัว', page: 'profile' },
-      { icon: 'fas fa-chart-bar', text: 'ผลงาน & KPI', page: 'profile' },
-      { icon: 'fas fa-cog', text: 'ตั้งค่า', page: 'profile' }
+    mobileTabs: [
+      { icon: 'fas fa-user', label: 'ข้อมูล' },
+      { icon: 'fas fa-file-alt', label: 'เอกสาร' },
+      { icon: 'fas fa-chart-bar', label: 'ผลงาน' },
+      { icon: 'fas fa-cog', label: 'ตั้งค่า' }
     ]
   }
 };
@@ -2025,6 +2456,36 @@ const moduleConfig = {
 let currentPage = 'home';
 let currentDevice = 'mobile';
 let sidebarExpanded = false;
+let mobileModuleOpen = false;
+let currentHomeTab = 'home';
+
+function switchHomeTab(tab) {
+  currentHomeTab = tab;
+  closeMobileModule();
+
+  var homeTabIds = ['home', 'phonebook', 'notification', 'profiletab'];
+  homeTabIds.forEach(function(t) {
+    var el = document.getElementById('page-' + t);
+    if (el) {
+      el.classList.toggle('active', t === tab);
+      if (t === tab) el.style.display = 'block';
+      else el.style.display = 'none';
+    }
+  });
+
+  if (tab === 'home') {
+    document.getElementById('page-home').style.display = 'block';
+  } else {
+    document.getElementById('page-home').style.display = 'none';
+  }
+
+  var tabs = document.querySelectorAll('#mobile-tabbar .tab-item');
+  tabs.forEach(function(t) {
+    t.classList.toggle('active', t.dataset.tab === tab);
+  });
+
+  document.getElementById('scroll-content').scrollTop = 0;
+}
 
 function switchDevice(device) {
   currentDevice = device;
@@ -2038,11 +2499,12 @@ function switchDevice(device) {
 
   if (device === 'desktop') {
     closeActionSheet();
-    const tabbar = document.getElementById('mobile-tabbar');
-    tabbar.style.display = 'none';
+    closeMobileModule();
+    document.getElementById('mobile-tabbar').style.display = 'none';
   } else {
-    const tabbar = document.getElementById('mobile-tabbar');
-    tabbar.style.display = 'flex';
+    if (!mobileModuleOpen) {
+      document.getElementById('mobile-tabbar').style.display = 'flex';
+    }
   }
 
   updateDesktopModuleNav();
@@ -2051,6 +2513,11 @@ function switchDevice(device) {
 function navigateTo(page) {
   currentPage = page;
 
+  if (currentDevice === 'mobile' && page !== 'home') {
+    openModule(page);
+    return;
+  }
+
   document.querySelectorAll('.page-module').forEach(p => p.classList.remove('active'));
   document.getElementById('page-home').style.display = 'none';
 
@@ -2058,6 +2525,10 @@ function navigateTo(page) {
     document.getElementById('page-home').style.display = 'block';
     document.body.classList.remove('module-active');
     updateTopBar('home');
+    if (currentDevice === 'mobile') {
+      closeMobileModule();
+      switchHomeTab('home');
+    }
   } else {
     document.getElementById('page-home').style.display = 'none';
     const modulePage = document.getElementById('page-' + page);
@@ -2075,34 +2546,111 @@ function navigateTo(page) {
   document.getElementById('scroll-content').scrollTop = 0;
 }
 
+function openModule(page) {
+  currentPage = page;
+  const config = moduleConfig[page];
+  if (!config) return;
+
+  if (currentDevice === 'desktop') {
+    document.querySelectorAll('.page-module').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-home').style.display = 'none';
+    const modulePage = document.getElementById('page-' + page);
+    if (modulePage) modulePage.classList.add('active');
+    document.body.classList.add('module-active');
+    updateTopBar(page);
+    updateSidebarActive(page);
+    updateDesktopModuleNav();
+    document.getElementById('scroll-content').scrollTop = 0;
+    return;
+  }
+
+  const overlay = document.getElementById('mobile-module-overlay');
+  const moduleContent = document.getElementById('page-' + page);
+
+  document.getElementById('mobile-overlay-title').textContent = config.title;
+  document.getElementById('mobile-overlay-subtitle').textContent = config.subtitle;
+  const iconEl = document.getElementById('mobile-overlay-icon');
+  iconEl.innerHTML = '<i class="' + config.icon + '"></i>';
+  iconEl.style.background = config.iconBg;
+
+  const scroll = document.getElementById('mobile-module-scroll');
+  scroll.innerHTML = '';
+  if (moduleContent) {
+    const clone = moduleContent.cloneNode(true);
+    clone.style.display = 'block';
+    clone.classList.add('active');
+    clone.style.padding = '20px';
+    scroll.appendChild(clone);
+  }
+
+  buildModuleTabBar(page);
+
+  document.getElementById('mobile-tabbar').style.display = 'none';
+  document.getElementById('mobile-module-tabbar').style.display = 'flex';
+
+  requestAnimationFrame(function() {
+    overlay.classList.add('slide-up');
+  });
+
+  mobileModuleOpen = true;
+  updateTopBar(page);
+  updateTabBar(page);
+}
+
+function closeModule() {
+  closeMobileModule();
+  navigateTo('home');
+}
+
+function closeMobileModule() {
+  const overlay = document.getElementById('mobile-module-overlay');
+  overlay.classList.remove('slide-up');
+  document.getElementById('mobile-module-tabbar').style.display = 'none';
+  document.getElementById('mobile-tabbar').style.display = 'flex';
+  mobileModuleOpen = false;
+  currentPage = 'home';
+  updateTabBar('home');
+}
+
+function buildModuleTabBar(page) {
+  const config = moduleConfig[page];
+  if (!config || !config.mobileTabs) return;
+
+  const container = document.getElementById('module-tab-items');
+  container.innerHTML = '';
+
+  config.mobileTabs.forEach(function(tab, i) {
+    var btn = document.createElement('button');
+    btn.className = 'module-tab-item' + (i === 0 ? ' active' : '');
+    btn.innerHTML = '<i class="' + tab.icon + '"></i><span>' + tab.label + '</span>';
+    btn.onclick = function() {
+      container.querySelectorAll('.module-tab-item').forEach(function(t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+    };
+    container.appendChild(btn);
+  });
+}
+
 function goHome() {
-navigateTo('home');
+  navigateTo('home');
 }
 
 function updateTopBar(page) {
   const config = moduleConfig[page];
+  if (!config) return;
   const title = document.getElementById('top-module-title');
   const subtitle = document.getElementById('top-module-subtitle');
-  const closeBtn = document.getElementById('module-close-btn');
 
   title.textContent = config.title;
-  subtitle.textContent = config.subtitle;
-
-  if (page === 'home') {
-    closeBtn.style.display = 'none';
-    title.style.fontSize = '18px';
-  } else {
-    closeBtn.style.display = 'flex';
-    title.style.fontSize = '18px';
-  }
+  if (subtitle) subtitle.textContent = config.subtitle;
 }
 
 function updateTabBar(page) {
   if (currentDevice !== 'mobile') return;
-  const tabs = document.querySelectorAll('.tab-item');
-  tabs.forEach(tab => {
-    const tabPage = tab.dataset.tab;
-    if (tabPage === page || (page !== 'home' && tabPage === page)) {
+  const tabs = document.querySelectorAll('#mobile-tabbar .tab-item');
+  tabs.forEach(function(tab) {
+    var tabPage = tab.dataset.tab;
+    if (tabPage === page) {
       tab.classList.add('active');
     } else {
       tab.classList.remove('active');
@@ -2111,7 +2659,7 @@ function updateTabBar(page) {
 }
 
 function updateSidebarActive(page) {
-  document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+  document.querySelectorAll('.sidebar-nav-item').forEach(function(item) {
     item.classList.toggle('active', item.dataset.page === page);
   });
 }
@@ -2121,19 +2669,19 @@ function updateDesktopModuleNav() {
   const tabsContainer = document.getElementById('desktop-nav-tabs');
   const config = moduleConfig[currentPage];
 
-  if (currentDevice !== 'desktop' || currentPage === 'home' || !config.tabs) {
+  if (currentDevice !== 'desktop' || currentPage === 'home' || !config || !config.tabs) {
     nav.classList.remove('visible');
     return;
   }
 
   nav.classList.add('visible');
   tabsContainer.innerHTML = '';
-  config.tabs.forEach((tab, i) => {
+  config.tabs.forEach(function(tab, i) {
     const btn = document.createElement('button');
     btn.className = 'desktop-nav-tab' + (i === 0 ? ' active' : '');
     btn.textContent = tab;
     btn.onclick = function() {
-      tabsContainer.querySelectorAll('.desktop-nav-tab').forEach(t => t.classList.remove('active'));
+      tabsContainer.querySelectorAll('.desktop-nav-tab').forEach(function(t) { t.classList.remove('active'); });
       btn.classList.add('active');
     };
     tabsContainer.appendChild(btn);
