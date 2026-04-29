@@ -651,6 +651,7 @@ body {
 .shortcut-icon.sc-training { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
 .shortcut-icon.sc-km { background: linear-gradient(135deg, #8B5CF6, #A78BFA); }
 .shortcut-icon.sc-profile { background: linear-gradient(135deg, #EC4899, #F472B6); }
+.shortcut-icon.sc-quiz { background: linear-gradient(135deg, #F97316, #FB923C); }
 
 .shortcut-label {
   font-size: 12px;
@@ -1113,6 +1114,212 @@ body {
 .device-frame.desktop .mobile-module-overlay { display: none; }
 
 /* ═══════════════════════════════════════════════════
+   DETAIL PAGE (slides in from right)
+   ═══════════════════════════════════════════════════ */
+
+.detail-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--kt-gray-50);
+  z-index: 160;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.detail-page.slide-in {
+  transform: translateX(0);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: white;
+  border-bottom: 1px solid var(--kt-gray-200);
+  flex-shrink: 0;
+}
+
+.detail-back-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--kt-gray-100);
+  border-radius: var(--radius-full);
+  color: var(--kt-gray-600);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.detail-back-btn:hover { background: var(--kt-gray-200); }
+
+.detail-header-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--kt-gray-800);
+}
+
+.detail-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.detail-scroll::-webkit-scrollbar { width: 4px; }
+.detail-scroll::-webkit-scrollbar-track { background: transparent; }
+.detail-scroll::-webkit-scrollbar-thumb { background: var(--kt-gray-300); border-radius: 4px; }
+
+.detail-section {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
+.detail-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kt-gray-800);
+  margin-bottom: 14px;
+}
+
+.detail-form-group {
+  margin-bottom: 16px;
+}
+
+.detail-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--kt-gray-500);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.detail-form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--kt-gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--kt-gray-700);
+  outline: none;
+  transition: var(--transition);
+  background: white;
+}
+
+.detail-form-input:focus { border-color: var(--kt-blue); box-shadow: 0 0 0 3px rgba(0,51,160,0.1); }
+
+.detail-form-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--kt-gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--kt-gray-700);
+  outline: none;
+  background: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239CA3B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.detail-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--kt-gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--kt-gray-700);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: var(--transition);
+}
+
+.detail-form-textarea:focus { border-color: var(--kt-blue); box-shadow: 0 0 0 3px rgba(0,51,160,0.1); }
+
+.detail-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.detail-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.detail-btn-primary {
+  background: var(--kt-blue);
+  color: white;
+}
+
+.detail-btn-primary:hover { background: var(--kt-blue-dark); box-shadow: var(--shadow-md); }
+
+.detail-btn-outline {
+  background: white;
+  color: var(--kt-blue);
+  border: 1px solid var(--kt-blue);
+}
+
+.detail-btn-outline:hover { background: var(--kt-blue); color: white; }
+
+.detail-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--kt-gray-100);
+}
+
+.detail-info-row:last-child { border-bottom: none; }
+
+.detail-info-label { font-size: 13px; color: var(--kt-gray-400); }
+.detail-info-value { font-size: 14px; font-weight: 600; color: var(--kt-gray-700); }
+
+.detail-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--kt-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.detail-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+
+/* ═══════════════════════════════════════════════════
    MOBILE ACTION SHEET (More Menu)
    ═══════════════════════════════════════════════════ */
 
@@ -1546,62 +1753,39 @@ body {
 
         <div class="sidebar-scroll">
 
-          <!-- เมนูหลัก -->
-          <div class="sidebar-section-label">เมนูหลัก</div>
           <div class="sidebar-nav" id="sidebar-nav">
-            <button class="sidebar-nav-item active" data-page="home" onclick="navigateTo('home')">
+            <button class="sidebar-nav-item active" data-page="home" onclick="switchHomeTab('home'); navigateTo('home')">
               <i class="fas fa-home"></i> <span>หน้าหลัก</span>
             </button>
-            <button class="sidebar-nav-item" data-page="leave" onclick="navigateTo('leave')">
-              <i class="fas fa-calendar-check"></i> <span>ลางาน</span>
-              <span class="nav-badge">1</span>
+            <button class="sidebar-nav-item" data-page="phonebook" onclick="switchHomeTab('phonebook')">
+              <i class="fas fa-address-book"></i> <span>สมุดโทรศัพท์</span>
             </button>
-            <button class="sidebar-nav-item" data-page="expense" onclick="navigateTo('expense')">
-              <i class="fas fa-wallet"></i> <span>เบิกค่าใช้จ่าย</span>
-              <span class="nav-badge">2</span>
-            </button>
-            <button class="sidebar-nav-item" data-page="training" onclick="navigateTo('training')">
-              <i class="fas fa-graduation-cap"></i> <span>อบรม</span>
-            </button>
-          </div>
-
-          <div class="sidebar-divider"></div>
-
-          <!-- Module เสริม -->
-          <div class="sidebar-section-label">Module เสริม</div>
-          <div class="sidebar-nav">
-            <button class="sidebar-nav-item" data-page="km" onclick="navigateTo('km')">
-              <i class="fas fa-book-open"></i> <span>สาระน่ารู้ (KM)</span>
-            </button>
-            <button class="sidebar-nav-item" data-page="profile" onclick="navigateTo('profile')">
-              <i class="fas fa-user-circle"></i> <span>โปรไฟล์</span>
-            </button>
-            <button class="sidebar-nav-item" onclick="navigateTo('home')">
-              <i class="fas fa-tasks"></i> <span>To-Do List</span>
-              <span class="nav-badge">7</span>
-            </button>
-            <button class="sidebar-nav-item" onclick="navigateTo('home')">
-              <i class="fas fa-users"></i> <span>Community</span>
-            </button>
-          </div>
-
-          <div class="sidebar-divider"></div>
-
-          <!-- ยูทิลิตี้ -->
-          <div class="sidebar-section-label">ระบบ</div>
-          <div class="sidebar-nav">
-            <button class="sidebar-nav-item">
-              <i class="fas fa-bell"></i> <span>การแจ้งเตือน</span>
+            <button class="sidebar-nav-item" data-page="notification" onclick="switchHomeTab('notification')">
+              <i class="fas fa-bell"></i> <span>แจ้งเตือน</span>
               <span class="nav-badge">3</span>
             </button>
-            <button class="sidebar-nav-item">
-              <i class="fas fa-question-circle"></i> <span>ช่วยเหลือ</span>
+            <button class="sidebar-nav-item" data-page="profiletab" onclick="switchHomeTab('profiletab')">
+              <i class="fas fa-user-circle"></i> <span>โปรไฟล์</span>
             </button>
-            <button class="sidebar-nav-item">
-              <i class="fas fa-cog"></i> <span>ตั้งค่า</span>
+          </div>
+
+          <div class="sidebar-divider"></div>
+
+          <div class="sidebar-section-label">ทางลัด</div>
+          <div class="sidebar-nav" id="sidebar-module-nav">
+            <button class="sidebar-nav-item" data-page="expense" onclick="openModule('expense')">
+              <i class="fas fa-wallet"></i> <span>Expense</span>
+              <span class="nav-badge">2</span>
             </button>
-            <button class="sidebar-nav-item">
-              <i class="fas fa-sign-out-alt"></i> <span>ออกจากระบบ</span>
+            <button class="sidebar-nav-item" data-page="training" onclick="openModule('training')">
+              <i class="fas fa-graduation-cap"></i> <span>E-Training</span>
+            </button>
+            <button class="sidebar-nav-item" data-page="leave" onclick="openModule('leave')">
+              <i class="fas fa-calendar-check"></i> <span>Leave</span>
+              <span class="nav-badge">1</span>
+            </button>
+            <button class="sidebar-nav-item" data-page="quiz" onclick="openModule('quiz')">
+              <i class="fas fa-question-circle"></i> <span>Interactive Quiz</span>
             </button>
           </div>
 
@@ -1703,25 +1887,21 @@ body {
               เมนูหลัก
             </div>
             <div class="module-shortcuts animate-in animate-in-delay-3">
-              <button class="shortcut-item" onclick="openModule('leave')">
-                <div class="shortcut-icon sc-leave"><i class="fas fa-calendar-check"></i></div>
-                <span class="shortcut-label">ลางาน</span>
-              </button>
               <button class="shortcut-item" onclick="openModule('expense')">
                 <div class="shortcut-icon sc-expense"><i class="fas fa-wallet"></i></div>
-                <span class="shortcut-label">เบิกจ่าย</span>
+                <span class="shortcut-label">Expense</span>
               </button>
               <button class="shortcut-item" onclick="openModule('training')">
                 <div class="shortcut-icon sc-training"><i class="fas fa-graduation-cap"></i></div>
-                <span class="shortcut-label">อบรม</span>
+                <span class="shortcut-label">E-Training</span>
               </button>
-              <button class="shortcut-item" onclick="openModule('km')">
-                <div class="shortcut-icon sc-km"><i class="fas fa-book-open"></i></div>
-                <span class="shortcut-label">สาระน่ารู้</span>
+              <button class="shortcut-item" onclick="openModule('leave')">
+                <div class="shortcut-icon sc-leave"><i class="fas fa-calendar-check"></i></div>
+                <span class="shortcut-label">Leave</span>
               </button>
-              <button class="shortcut-item" onclick="openModule('profile')">
-                <div class="shortcut-icon sc-profile"><i class="fas fa-user-circle"></i></div>
-                <span class="shortcut-label">โปรไฟล์</span>
+              <button class="shortcut-item" onclick="openModule('quiz')">
+                <div class="shortcut-icon sc-quiz"><i class="fas fa-question-circle"></i></div>
+                <span class="shortcut-label">Interactive Quiz</span>
               </button>
             </div>
 
@@ -1955,28 +2135,28 @@ body {
               <p>ยื่นใบลา ตรวจสอบสถานะ และประวัติการลา</p>
             </div>
             <div class="module-quick-actions animate-in animate-in-delay-1">
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('leave-form')">
                 <div class="module-action-icon"><i class="fas fa-plus"></i></div>
                 <div>
                   <div class="module-action-text">ยื่นใบลา</div>
                   <div class="module-action-desc">สร้างคำขอลาใหม่</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('leave-history')">
                 <div class="module-action-icon"><i class="fas fa-history"></i></div>
                 <div>
                   <div class="module-action-text">ประวัติลา</div>
                   <div class="module-action-desc">ดูประวัติทั้งหมด</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('leave-summary')">
                 <div class="module-action-icon"><i class="fas fa-chart-pie"></i></div>
                 <div>
                   <div class="module-action-text">สรุปวันลา</div>
                   <div class="module-action-desc">คงเหลือ/ใช้ไป</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('leave-approve')">
                 <div class="module-action-icon"><i class="fas fa-clipboard-check"></i></div>
                 <div>
                   <div class="module-action-text">อนุมัติใบลา</div>
@@ -2024,28 +2204,28 @@ body {
               <p>ยื่นเบิก ติดตามสถานะ และจัดการงบประมาณ</p>
             </div>
             <div class="module-quick-actions animate-in animate-in-delay-1">
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('expense-form')">
                 <div class="module-action-icon"><i class="fas fa-plus"></i></div>
                 <div>
                   <div class="module-action-text">ยื่นเบิกใหม่</div>
                   <div class="module-action-desc">สร้างใบเบิก</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('expense-track')">
                 <div class="module-action-icon"><i class="fas fa-receipt"></i></div>
                 <div>
                   <div class="module-action-text">ติดตามสถานะ</div>
                   <div class="module-action-desc">เบิกที่รอดำเนินการ</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('expense-summary')">
                 <div class="module-action-icon"><i class="fas fa-chart-bar"></i></div>
                 <div>
                   <div class="module-action-text">สรุปงบประมาณ</div>
                   <div class="module-action-desc">ภาพรวมการใช้จ่าย</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('expense-approve')">
                 <div class="module-action-icon"><i class="fas fa-clipboard-check"></i></div>
                 <div>
                   <div class="module-action-text">อนุมัติเบิก</div>
@@ -2093,28 +2273,28 @@ body {
               <p>ลงทะเบียน ติดตาม และประวัติการอบรม</p>
             </div>
             <div class="module-quick-actions animate-in animate-in-delay-1">
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('training-search')">
                 <div class="module-action-icon"><i class="fas fa-search"></i></div>
                 <div>
                   <div class="module-action-text">ค้นหาคอร์ส</div>
                   <div class="module-action-desc">อบรมที่เปิดให้ลงทะเบียน</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('training-schedule')">
                 <div class="module-action-icon"><i class="fas fa-calendar-alt"></i></div>
                 <div>
                   <div class="module-action-text">ตารางอบรม</div>
                   <div class="module-action-desc">คอร์สที่ลงทะเบียนแล้ว</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('training-cert')">
                 <div class="module-action-icon"><i class="fas fa-certificate"></i></div>
                 <div>
                   <div class="module-action-text">ใบรับรอง</div>
                   <div class="module-action-desc">Certificate</div>
                 </div>
               </button>
-              <button class="module-action-card">
+              <button class="module-action-card" onclick="openDetail('training-skill')">
                 <div class="module-action-icon"><i class="fas fa-chart-line"></i></div>
                 <div>
                   <div class="module-action-text">Skill Matrix</div>
@@ -2274,6 +2454,74 @@ body {
             </div>
           </div>
 
+          <!-- QUIZ MODULE -->
+          <div class="page-module" id="page-quiz">
+            <div class="module-hero animate-in" style="background:linear-gradient(135deg,#F97316,#FB923C);">
+              <i class="fas fa-question-circle module-hero-icon"></i>
+              <h2>Interactive Quiz</h2>
+              <p>ทดสอบความรู้ เรียนรู้สิ่งใหม่ แข่งขันกับเพื่อนร่วมงาน</p>
+            </div>
+            <div class="module-quick-actions animate-in animate-in-delay-1">
+              <button class="module-action-card" onclick="openDetail('quiz-start')">
+                <div class="module-action-icon" style="color:#F97316;"><i class="fas fa-play-circle"></i></div>
+                <div>
+                  <div class="module-action-text">เริ่มทำ Quiz</div>
+                  <div class="module-action-desc">เลือกหมวดหมู่แล้วเริ่มเลย</div>
+                </div>
+              </button>
+              <button class="module-action-card" onclick="openDetail('quiz-history')">
+                <div class="module-action-icon" style="color:#F97316;"><i class="fas fa-history"></i></div>
+                <div>
+                  <div class="module-action-text">ประวัติการสอบ</div>
+                  <div class="module-action-desc">ดูผล Quiz ที่ผ่านมา</div>
+                </div>
+              </button>
+              <button class="module-action-card" onclick="openDetail('quiz-leaderboard')">
+                <div class="module-action-icon" style="color:#F97316;"><i class="fas fa-trophy"></i></div>
+                <div>
+                  <div class="module-action-text">Leaderboard</div>
+                  <div class="module-action-desc">อันดับคะแนนสูงสุด</div>
+                </div>
+              </button>
+              <button class="module-action-card" onclick="openDetail('quiz-result')">
+                <div class="module-action-icon" style="color:#F97316;"><i class="fas fa-chart-pie"></i></div>
+                <div>
+                  <div class="module-action-text">สรุปผล</div>
+                  <div class="module-action-desc">ภาพรวมคะแนนของคุณ</div>
+                </div>
+              </button>
+            </div>
+            <div class="module-content-card animate-in animate-in-delay-2">
+              <div class="content-card-header">
+                <div class="content-card-title">Quiz แนะนำ</div>
+              </div>
+              <div class="content-list-item">
+                <div class="content-list-icon" style="background:#FFF7ED;color:#F97316;"><i class="fas fa-shield-alt"></i></div>
+                <div class="content-list-info">
+                  <div class="title">Cyber Security Basics</div>
+                  <div class="subtitle">10 ข้อ • 5 นาที</div>
+                </div>
+                <span class="content-list-status status-pending">เริ่มได้</span>
+              </div>
+              <div class="content-list-item">
+                <div class="content-list-icon" style="background:#FFF7ED;color:#F97316;"><i class="fas fa-university"></i></div>
+                <div class="content-list-info">
+                  <div class="title">Banking Regulations 2569</div>
+                  <div class="subtitle">15 ข้อ • 10 นาที</div>
+                </div>
+                <span class="content-list-status status-pending">เริ่มได้</span>
+              </div>
+              <div class="content-list-item">
+                <div class="content-list-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="fas fa-headset"></i></div>
+                <div class="content-list-info">
+                  <div class="title">Customer Service Excellence</div>
+                  <div class="subtitle">20 ข้อ • 15 นาที</div>
+                </div>
+                <span class="content-list-status status-approved">ทำแล้ว ✓</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Mobile Tab Bar (Home) -->
@@ -2321,8 +2569,20 @@ body {
             <i class="fas fa-home"></i>
           </button>
           <div class="module-tab-divider"></div>
-          <!-- Dynamic module tabs injected here -->
           <div id="module-tab-items" style="display:flex;align-items:center;gap:0;flex:1;justify-content:space-around;"></div>
+        </div>
+
+        <!-- Detail Page Overlay (slides in from right) -->
+        <div class="detail-page" id="detail-page">
+          <div class="detail-header">
+            <button class="detail-back-btn" onclick="closeDetail()">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="detail-header-title" id="detail-title">รายละเอียด</div>
+          </div>
+          <div class="detail-scroll" id="detail-scroll">
+            <!-- Detail content injected here -->
+          </div>
         </div>
 
         <!-- Mobile Action Sheet Overlay -->
@@ -2450,6 +2710,20 @@ const moduleConfig = {
       { icon: 'fas fa-chart-bar', label: 'ผลงาน' },
       { icon: 'fas fa-cog', label: 'ตั้งค่า' }
     ]
+  },
+  quiz: {
+    title: 'Interactive Quiz',
+    subtitle: 'ทดสอบความรู้และทักษะ',
+    icon: 'fas fa-question-circle',
+    iconBg: 'linear-gradient(135deg, #F97316, #FB923C)',
+    color: '#F97316',
+    tabs: ['เริ่มทำ Quiz', 'ประวัติ', 'อันดับ', 'สรุปผล'],
+    mobileTabs: [
+      { icon: 'fas fa-play-circle', label: 'เริ่มทำ' },
+      { icon: 'fas fa-history', label: 'ประวัติ' },
+      { icon: 'fas fa-trophy', label: 'อันดับ' },
+      { icon: 'fas fa-chart-pie', label: 'สรุปผล' }
+    ]
   }
 };
 
@@ -2461,7 +2735,6 @@ let currentHomeTab = 'home';
 
 function switchHomeTab(tab) {
   currentHomeTab = tab;
-  closeMobileModule();
 
   var homeTabIds = ['home', 'phonebook', 'notification', 'profiletab'];
   homeTabIds.forEach(function(t) {
@@ -2479,10 +2752,14 @@ function switchHomeTab(tab) {
     document.getElementById('page-home').style.display = 'none';
   }
 
-  var tabs = document.querySelectorAll('#mobile-tabbar .tab-item');
-  tabs.forEach(function(t) {
-    t.classList.toggle('active', t.dataset.tab === tab);
-  });
+  if (currentDevice === 'mobile') {
+    var tabs = document.querySelectorAll('#mobile-tabbar .tab-item');
+    tabs.forEach(function(t) {
+      t.classList.toggle('active', t.dataset.tab === tab);
+    });
+  }
+
+  updateSidebarActive(tab);
 
   document.getElementById('scroll-content').scrollTop = 0;
 }
@@ -2706,6 +2983,100 @@ function toggleSidebar() {
   toggle.innerHTML = sidebarExpanded
     ? '<i class="fas fa-times"></i>'
     : '<i class="fas fa-bars"></i>';
+}
+
+let detailOpen = false;
+
+var detailPages = {
+  'leave-form': {
+    title: 'ยื่นใบลา',
+    html: '<div class="detail-section"><div class="detail-section-title">แบบฟอร์มขอลางาน</div><div class="detail-form-group"><div class="detail-form-label">ประเภทการลา</div><select class="detail-form-select"><option>เลือกประเภท</option><option>ลาพักร้อน</option><option>ลาป่วย</option><option>ลากิจ</option><option>ลาคลอด</option></select></div><div class="detail-form-row"><div class="detail-form-group"><div class="detail-form-label">วันที่เริ่ม</div><input type="date" class="detail-form-input"></div><div class="detail-form-group"><div class="detail-form-label">วันที่สิ้นสุด</div><input type="date" class="detail-form-input"></div></div><div class="detail-form-group"><div class="detail-form-label">เหตุผล</div><textarea class="detail-form-textarea" placeholder="ระบุเหตุผลการลา..."></textarea></div><div class="detail-form-group"><div class="detail-form-label">แนบเอกสาร (ถ้ามี)</div><input type="file" class="detail-form-input" style="padding:8px;"></div><button class="detail-btn detail-btn-primary" style="margin-top:8px;"><i class="fas fa-paper-plane"></i> ส่งคำขอลา</button></div>'
+  },
+  'leave-history': {
+    title: 'ประวัติการลา',
+    html: '<div class="detail-section"><div class="detail-section-title">ประวัติการลาทั้งหมด</div><div class="detail-info-row"><div class="detail-info-label">ลาพักร้อน 3 วัน</div><div class="detail-info-value"><span class="content-list-status status-approved" style="font-size:11px;">อนุมัติ</span></div></div><div class="detail-info-row"><div class="detail-info-label">15-17 พ.ค. 2569</div><div class="detail-info-value" style="font-size:12px;color:var(--kt-gray-400);">หัวหน้าอนุมัติ</div></div></div><div class="detail-section"><div class="detail-info-row"><div class="detail-info-label">ลาป่วย 1 วัน</div><div class="detail-info-value"><span class="content-list-status status-approved" style="font-size:11px;">อนุมัติ</span></div></div><div class="detail-info-row"><div class="detail-info-label">22 เม.ย. 2569</div><div class="detail-info-value" style="font-size:12px;color:var(--kt-gray-400);">หัวหน้าอนุมัติ</div></div></div><div class="detail-section"><div class="detail-info-row"><div class="detail-info-label">ลากิจ 2 วัน</div><div class="detail-info-value"><span class="content-list-status status-pending" style="font-size:11px;">รออนุมัติ</span></div></div><div class="detail-info-row"><div class="detail-info-label">5-6 พ.ค. 2569</div><div class="detail-info-value" style="font-size:12px;color:var(--kt-gray-400);">รอหัวหน้า</div></div></div>'
+  },
+  'leave-summary': {
+    title: 'สรุปวันลา',
+    html: '<div class="detail-section"><div class="detail-section-title">สรุปวันลาประจำปี 2569</div><div class="detail-info-row"><div class="detail-info-label">ลาพักร้อน</div><div class="detail-info-value">5 / 10 วัน</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:50%;background:#3B82F6;"></div></div><div class="detail-info-row" style="margin-top:12px;"><div class="detail-info-label">ลาป่วย</div><div class="detail-info-value">2 / 30 วัน</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:7%;background:#F59E0B;"></div></div><div class="detail-info-row" style="margin-top:12px;"><div class="detail-info-label">ลากิจ</div><div class="detail-info-value">3 / 10 วัน</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:30%;background:#8B5CF6;"></div></div></div><div class="detail-section"><div class="detail-section-title">วันลาคงเหลือ</div><div style="text-align:center;padding:16px 0;"><div style="font-size:42px;font-weight:800;color:var(--kt-blue);">15</div><div style="font-size:14px;color:var(--kt-gray-400);margin-top:4px;">วันลารวมคงเหลือ</div></div></div>'
+  },
+  'leave-approve': {
+    title: 'อนุมัติใบลา',
+    html: '<div class="detail-section"><div class="detail-section-title">รอการอนุมัติ (2)</div><div style="padding:14px;background:var(--kt-gray-50);border-radius:var(--radius-md);margin-bottom:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:var(--radius-full);background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">นิ</div><div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">นิตยา สุขสม</div><div style="font-size:12px;color:var(--kt-gray-400);">ลาพักร้อน 3 วัน • 20-22 พ.ค. 2569</div></div></div><div style="display:flex;gap:8px;"><button class="detail-btn detail-btn-primary" style="flex:1;padding:8px;font-size:13px;">อนุมัติ</button><button class="detail-btn detail-btn-outline" style="flex:1;padding:8px;font-size:13px;">ปฏิเสธ</button></div></div><div style="padding:14px;background:var(--kt-gray-50);border-radius:var(--radius-md);"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;border-radius:var(--radius-full);background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">พร</div><div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">พรทิพย์ มงคล</div><div style="font-size:12px;color:var(--kt-gray-400);">ลาป่วย 1 วัน • 30 เม.ย. 2569</div></div></div><div style="display:flex;gap:8px;"><button class="detail-btn detail-btn-primary" style="flex:1;padding:8px;font-size:13px;">อนุมัติ</button><button class="detail-btn detail-btn-outline" style="flex:1;padding:8px;font-size:13px;">ปฏิเสธ</button></div></div></div>'
+  },
+  'expense-form': {
+    title: 'ยื่นเบิกใหม่',
+    html: '<div class="detail-section"><div class="detail-section-title">แบบฟอร์มเบิกค่าใช้จ่าย</div><div class="detail-form-group"><div class="detail-form-label">ประเภทค่าใช้จ่าย</div><select class="detail-form-select"><option>เลือกประเภท</option><option>ค่าเดินทาง</option><option>ค่าที่พัก</option><option>ค่าอาหาร</option><option>ค่าวัสดุ</option></select></div><div class="detail-form-group"><div class="detail-form-label">จำนวนเงิน (บาท)</div><input type="number" class="detail-form-input" placeholder="0.00"></div><div class="detail-form-row"><div class="detail-form-group"><div class="detail-form-label">วันที่</div><input type="date" class="detail-form-input"></div><div class="detail-form-group"><div class="detail-form-label">โครงการ/งาน</div><input type="text" class="detail-form-input" placeholder="ชื่อโครงการ"></div></div><div class="detail-form-group"><div class="detail-form-label">รายละเอียด</div><textarea class="detail-form-textarea" placeholder="ระบุรายละเอียดการใช้จ่าย..."></textarea></div><div class="detail-form-group"><div class="detail-form-label">แนบใบเสร็จ</div><input type="file" class="detail-form-input" style="padding:8px;"></div><button class="detail-btn detail-btn-primary" style="margin-top:8px;"><i class="fas fa-paper-plane"></i> ส่งคำขอเบิก</button></div>'
+  },
+  'expense-track': {
+    title: 'ติดตามสถานะ',
+    html: '<div class="detail-section"><div class="detail-section-title">รายการเบิกที่ดำเนินการ</div><div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--kt-gray-100);"><div style="width:10px;height:10px;border-radius:var(--radius-full);background:var(--kt-warning);flex-shrink:0;"></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">เบิกค่าเดินทาง</div><div style="font-size:12px;color:var(--kt-gray-400);">฿3,500 • ส่งเมื่อ 20 เม.ย.</div></div><span class="content-list-status status-pending" style="font-size:10px;">รอหัวหน้า</span></div><div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--kt-gray-100);"><div style="width:10px;height:10px;border-radius:var(--radius-full);background:var(--kt-warning);flex-shrink:0;"></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">เบิกค่าวัสดุสำนักงาน</div><div style="font-size:12px;color:var(--kt-gray-400);">฿1,200 • ส่งเมื่อ 18 เม.ย.</div></div><span class="content-list-status status-pending" style="font-size:10px;">รอการเงิน</span></div><div style="display:flex;align-items:center;gap:12px;padding:12px 0;"><div style="width:10px;height:10px;border-radius:var(--radius-full);background:var(--kt-success);flex-shrink:0;"></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">เบิกค่าที่พัก</div><div style="font-size:12px;color:var(--kt-gray-400);">฿4,200 • ส่งเมื่อ 15 เม.ย.</div></div><span class="content-list-status status-approved" style="font-size:10px;">เบิกแล้ว</span></div></div>'
+  },
+  'expense-summary': {
+    title: 'สรุปงบประมาณ',
+    html: '<div class="detail-section"><div class="detail-section-title">งบประมาณประจำปี 2569</div><div style="text-align:center;padding:16px 0;"><div style="font-size:36px;font-weight:800;color:var(--kt-success);">฿47,300</div><div style="font-size:14px;color:var(--kt-gray-400);margin-top:4px;">ใช้ไปจาก ฿100,000</div></div><div class="detail-progress-bar" style="height:10px;"><div class="detail-progress-fill" style="width:47.3%;background:linear-gradient(90deg,#10B981,#34D399);"></div></div></div><div class="detail-section"><div class="detail-section-title">แยกตามหมวดหมู่</div><div class="detail-info-row"><div class="detail-info-label">ค่าเดินทาง</div><div class="detail-info-value" style="color:#3B82F6;">฿15,800</div></div><div class="detail-info-row"><div class="detail-info-label">ค่าที่พัก</div><div class="detail-info-value" style="color:#10B981;">฿22,500</div></div><div class="detail-info-row"><div class="detail-info-label">ค่าอาหาร</div><div class="detail-info-value" style="color:#F59E0B;">฿5,200</div></div><div class="detail-info-row"><div class="detail-info-label">อื่นๆ</div><div class="detail-info-value" style="color:#8B5CF6;">฿3,800</div></div></div>'
+  },
+  'expense-approve': {
+    title: 'อนุมัติเบิก',
+    html: '<div class="detail-section"><div class="detail-section-title">รอการอนุมัติ (3)</div><div style="padding:14px;background:var(--kt-gray-50);border-radius:var(--radius-md);margin-bottom:12px;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:36px;height:36px;border-radius:var(--radius-full);background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">สม</div><div><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">สมศักดิ์ รุ่งเรือง</div><div style="font-size:12px;color:var(--kt-gray-400);">ค่าเดินทาง ฿2,800 • 25 เม.ย.</div></div></div><div style="display:flex;gap:8px;"><button class="detail-btn detail-btn-primary" style="flex:1;padding:8px;font-size:13px;">อนุมัติ</button><button class="detail-btn detail-btn-outline" style="flex:1;padding:8px;font-size:13px;">ปฏิเสธ</button></div></div></div>'
+  },
+  'training-search': {
+    title: 'ค้นหาคอร์สอบรม',
+    html: '<div class="detail-section" style="margin-bottom:12px;"><div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-search" style="color:var(--kt-gray-400);"></i><input type="text" class="detail-form-input" style="border:none;padding:0;" placeholder="ค้นหาคอร์สอบรม..."></div></div><div class="detail-section"><div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--kt-gray-200);margin-bottom:12px;"><div style="font-size:15px;font-weight:600;color:var(--kt-gray-700);margin-bottom:4px;">Cyber Security Awareness</div><div style="font-size:13px;color:var(--kt-gray-400);margin-bottom:8px;">2-3 พ.ค. 2569 • ออนไลน์ • ฟรี</div><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:12px;color:var(--kt-warning);"><i class="fas fa-users"></i> 23/40 ที่นั่ง</div><button class="detail-btn detail-btn-primary" style="width:auto;padding:6px 16px;font-size:12px;">ลงทะเบียน</button></div></div><div style="padding:12px;border-radius:var(--radius-md);border:1px solid var(--kt-gray-200);"><div style="font-size:15px;font-weight:600;color:var(--kt-gray-700);margin-bottom:4px;">Digital Banking Innovation</div><div style="font-size:13px;color:var(--kt-gray-400);margin-bottom:8px;">10-12 พ.ค. 2569 • สาขาใหญ่ • ฟรี</div><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:12px;color:var(--kt-success);"><i class="fas fa-users"></i> 15/30 ที่นั่ง</div><button class="detail-btn detail-btn-primary" style="width:auto;padding:6px 16px;font-size:12px;">ลงทะเบียน</button></div></div></div>'
+  },
+  'training-schedule': {
+    title: 'ตารางอบรมของฉัน',
+    html: '<div class="detail-section"><div class="detail-section-title">คอร์สที่ลงทะเบียนแล้ว</div><div style="padding:12px 0;border-bottom:1px solid var(--kt-gray-100);"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:var(--radius-sm);background:#FFF7ED;display:flex;align-items:center;justify-content:center;color:#F59E0B;font-size:14px;"><i class="fas fa-laptop-code"></i></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">Digital Banking Innovation</div><div style="font-size:12px;color:var(--kt-gray-400);">10-12 พ.ค. 2569 • สาขาใหญ่</div></div></div></div><div style="padding:12px 0;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="width:40px;height:40px;border-radius:var(--radius-sm);background:#EFF6FF;display:flex;align-items:center;justify-content:center;color:#3B82F6;font-size:14px;"><i class="fas fa-shield-alt"></i></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">Cyber Security Awareness</div><div style="font-size:12px;color:var(--kt-gray-400);">2-3 พ.ค. 2569 • ออนไลน์</div></div></div></div></div>'
+  },
+  'training-cert': {
+    title: 'ใบรับรอง',
+    html: '<div class="detail-section"><div class="detail-section-title">Certificate ของคุณ</div><div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--kt-gray-100);;"><div style="width:44px;height:44px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#F59E0B,#FBBF24);display:flex;align-items:center;justify-content:center;color:white;font-size:18px;"><i class="fas fa-certificate"></i></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">Customer Service Excellence</div><div style="font-size:12px;color:var(--kt-gray-400);">ออกเมื่อ 10 เม.ย. 2569</div></div><button class="detail-btn detail-btn-outline" style="width:auto;padding:6px 14px;font-size:12px;"><i class="fas fa-download"></i> ดาวน์โหลด</button></div><div style="display:flex;align-items:center;gap:12px;padding:12px 0;"><div style="width:44px;height:44px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;color:white;font-size:18px;"><i class="fas fa-certificate"></i></div><div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">AML/KYC Compliance</div><div style="font-size:12px;color:var(--kt-gray-400);">ออกเมื่อ 28 มี.ค. 2569</div></div><button class="detail-btn detail-btn-outline" style="width:auto;padding:6px 14px;font-size:12px;"><i class="fas fa-download"></i> ดาวน์โหลด</button></div></div>'
+  },
+  'training-skill': {
+    title: 'Skill Matrix',
+    html: '<div class="detail-section"><div class="detail-section-title">ทักษะของคุณ</div><div class="detail-info-row"><div class="detail-info-label">Digital Banking</div><div class="detail-info-value" style="color:var(--kt-success);">85%</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:85%;background:#10B981;"></div></div><div class="detail-info-row" style="margin-top:12px;"><div class="detail-info-label">Cyber Security</div><div class="detail-info-value" style="color:#3B82F6;">70%</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:70%;background:#3B82F6;"></div></div><div class="detail-info-row" style="margin-top:12px;"><div class="detail-info-label">Customer Service</div><div class="detail-info-value" style="color:#F59E0B;">92%</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:92%;background:#F59E0B;"></div></div><div class="detail-info-row" style="margin-top:12px;"><div class="detail-info-label">Risk Management</div><div class="detail-info-value" style="color:#8B5CF6;">65%</div></div><div class="detail-progress-bar"><div class="detail-progress-fill" style="width:65%;background:#8B5CF6;"></div></div></div>'
+  },
+  'quiz-start': {
+    title: 'เลือก Quiz',
+    html: '<div class="detail-section"><div class="detail-section-title">เลือกหมวดหมู่</div><div style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--kt-gray-200);margin-bottom:10px;cursor:pointer;" onclick="openDetail(\'quiz-play\')"><div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:15px;font-weight:600;color:var(--kt-gray-700);">Cyber Security Basics</div><div style="font-size:12px;color:var(--kt-gray-400);">10 ข้อ • 5 นาที • ง่าย</div></div><div style="width:40px;height:40px;border-radius:var(--radius-full);background:#FFF7ED;display:flex;align-items:center;justify-content:center;color:#F97316;font-size:16px;"><i class="fas fa-play"></i></div></div></div><div style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--kt-gray-200);margin-bottom:10px;cursor:pointer;" onclick="openDetail(\'quiz-play\')"><div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:15px;font-weight:600;color:var(--kt-gray-700);">Banking Regulations</div><div style="font-size:12px;color:var(--kt-gray-400);">15 ข้อ • 10 นาที • ปานกลาง</div></div><div style="width:40px;height:40px;border-radius:var(--radius-full);background:#FFF7ED;display:flex;align-items:center;justify-content:center;color:#F97316;font-size:16px;"><i class="fas fa-play"></i></div></div></div><div style="padding:14px;border-radius:var(--radius-md);border:1px solid var(--kt-gray-200);cursor:pointer;" onclick="openDetail(\'quiz-play\')"><div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:15px;font-weight:600;color:var(--kt-gray-700);">Customer Service</div><div style="font-size:12px;color:var(--kt-gray-400);">20 ข้อ • 15 นาที • ยาก</div></div><div style="width:40px;height:40px;border-radius:var(--radius-full);background:#FEF2F2;display:flex;align-items:center;justify-content:center;color:#EF4444;font-size:16px;"><i class="fas fa-play"></i></div></div></div></div>'
+  },
+  'quiz-play': {
+    title: 'กำลังทำ Quiz',
+    html: '<div class="detail-section"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;"><div style="font-size:13px;font-weight:600;color:var(--kt-gray-500);">ข้อที่ 3 / 10</div><div style="font-size:13px;color:var(--kt-danger);font-weight:600;"><i class="far fa-clock"></i> 03:42</div></div><div class="detail-progress-bar" style="height:6px;"><div class="detail-progress-fill" style="width:30%;background:#F97316;"></div></div></div><div class="detail-section"><div style="font-size:16px;font-weight:600;color:var(--kt-gray-800);line-height:1.6;margin-bottom:16px;">ข้อใดเป็นแนวทางปฏิบัติที่ดีที่สุดสำหรับการรักษาความปลอดภัยรหัสผ่าน?</div><div style="display:flex;flex-direction:column;gap:8px;" id="quiz-choices"><button class="detail-btn detail-btn-outline" style="justify-content:flex-start;padding:12px 16px;" onclick="this.style.background=\'#10B981\';this.style.color=\'white\';this.style.borderColor=\'#10B981\';">A. ใช้รหัสผ่านเดียวกันทุกที่</button><button class="detail-btn detail-btn-outline" style="justify-content:flex-start;padding:12px 16px;">B. เขียนรหัสผ่านไว้ที่ Post-it</button><button class="detail-btn detail-btn-outline" style="justify-content:flex-start;padding:12px 16px;">C. ใช้รหัสผ่านที่ซับซ้อนและเปลี่ยนเป็นระยะ</button><button class="detail-btn detail-btn-outline" style="justify-content:flex-start;padding:12px 16px;">D. ใช้วันเกิดเป็นรหัสผ่าน</button></div></div>'
+  },
+  'quiz-history': {
+    title: 'ประวัติการสอบ',
+    html: '<div class="detail-section"><div class="detail-section-title">ผล Quiz ล่าสุด</div><div style="padding:12px 0;border-bottom:1px solid var(--kt-gray-100);"><div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">Customer Service Excellence</div><div style="font-size:18px;font-weight:800;color:var(--kt-success);">85%</div></div><div style="font-size:12px;color:var(--kt-gray-400);margin-top:2px;">17/20 ข้อถูก • 25 เม.ย. 2569</div></div><div style="padding:12px 0;border-bottom:1px solid var(--kt-gray-100);"><div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">AML/KYC Compliance</div><div style="font-size:18px;font-weight:800;color:var(--kt-warning);">72%</div></div><div style="font-size:12px;color:var(--kt-gray-400);margin-top:2px;">18/25 ข้อถูก • 10 เม.ย. 2569</div></div><div style="padding:12px 0;"><div style="display:flex;align-items:center;justify-content:space-between;"><div style="font-size:14px;font-weight:600;color:var(--kt-gray-700);">Cyber Security Basics</div><div style="font-size:18px;font-weight:800;color:var(--kt-danger);">60%</div></div><div style="font-size:12px;color:var(--kt-gray-400);margin-top:2px;">6/10 ข้อถูก • 1 เม.ย. 2569</div></div></div>'
+  },
+  'quiz-leaderboard': {
+    title: 'Leaderboard',
+    html: '<div class="detail-section"><div class="detail-section-title">อันดับคะแนนสูงสุด เม.ย. 2569</div><div style="display:flex;align-items:center;gap:12px;padding:12px;background:linear-gradient(135deg,#FFF7ED,#FEF2F2);border-radius:var(--radius-md);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:var(--radius-full);background:#F97316;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:800;">1</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--kt-gray-800);">ธนา พงษ์พานิช</div><div style="font-size:12px;color:var(--kt-gray-400);">สาขาสีลม</div></div><div style="font-size:18px;font-weight:800;color:#F97316;">920</div></div><div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--kt-gray-50);border-radius:var(--radius-md);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:var(--radius-full);background:#3B82F6;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:800;">2</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--kt-gray-800);">วิภา สุขสันต์</div><div style="font-size:12px;color:var(--kt-gray-400);">สาขาสีลม</div></div><div style="font-size:18px;font-weight:800;color:#3B82F6;">875</div></div><div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--kt-gray-50);border-radius:var(--radius-md);margin-bottom:10px;"><div style="width:32px;height:32px;border-radius:var(--radius-full);background:#10B981;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:800;">3</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--kt-gray-800);">ประเสริฐ ศรีสุข</div><div style="font-size:12px;color:var(--kt-gray-400);">สาขาเซ็นทรัล</div></div><div style="font-size:18px;font-weight:800;color:#10B981;">840</div></div><div style="display:flex;align-items:center;gap:12px;padding:12px;background:linear-gradient(135deg,#EFF6FF,#F0F9FF);border-radius:var(--radius-md);border:1px dashed var(--kt-blue);"><div style="width:32px;height:32px;border-radius:var(--radius-full);background:var(--kt-blue);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:800;">8</div><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--kt-blue);">คุณ (สมชาย)</div><div style="font-size:12px;color:var(--kt-gray-400);">สาขาสีลม</div></div><div style="font-size:18px;font-weight:800;color:var(--kt-blue);">720</div></div></div>'
+  },
+  'quiz-result': {
+    title: 'สรุปผลการสอบ',
+    html: '<div class="detail-section"><div style="text-align:center;padding:20px 0;"><div style="font-size:48px;font-weight:800;color:var(--kt-success);">72%</div><div style="font-size:16px;color:var(--kt-gray-500);margin-top:4px;">คะแนนเฉลี่ยของคุณ</div></div><div class="detail-progress-bar" style="height:10px;"><div class="detail-progress-fill" style="width:72%;background:linear-gradient(90deg,#10B981,#34D399);"></div></div></div><div class="detail-section"><div class="detail-section-title">สถิติรวม</div><div class="detail-info-row"><div class="detail-info-label">Quiz ที่ทำแล้ว</div><div class="detail-info-value">12 ครั้ง</div></div><div class="detail-info-row"><div class="detail-info-label">คะแนนสูงสุด</div><div class="detail-info-value" style="color:var(--kt-success);">92%</div></div><div class="detail-info-row"><div class="detail-info-label">คะแนนต่ำสุด</div><div class="detail-info-value" style="color:var(--kt-danger);">55%</div></div><div class="detail-info-row"><div class="detail-info-label">อันดับของคุณ</div><div class="detail-info-value" style="color:var(--kt-blue);">#8 จาก 45 คน</div></div></div>'
+  }
+};
+
+function openDetail(pageId) {
+  var page = detailPages[pageId];
+  if (!page) return;
+
+  document.getElementById('detail-title').textContent = page.title;
+  document.getElementById('detail-scroll').innerHTML = page.html;
+
+  var detailEl = document.getElementById('detail-page');
+  requestAnimationFrame(function() {
+    detailEl.classList.add('slide-in');
+  });
+
+  detailOpen = true;
+}
+
+function closeDetail() {
+  var detailEl = document.getElementById('detail-page');
+  detailEl.classList.remove('slide-in');
+  detailOpen = false;
 }
 
 navigateTo('home');
