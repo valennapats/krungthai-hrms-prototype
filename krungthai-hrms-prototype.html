@@ -957,33 +957,41 @@ body {
 
 .mobile-tabbar {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255,255,255,0.5);
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+  height: 64px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--radius-full);
   display: none;
   align-items: center;
   justify-content: space-around;
-  padding: 0 10px;
-  padding-bottom: 10px;
+  padding: 0 8px;
   z-index: 200;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(49,144,247,0.12), 0 2px 8px rgba(255,255,255,0.4) inset;
 }
 
 .device-frame.mobile .mobile-tabbar { display: flex; }
 .device-frame.desktop .mobile-tabbar { display: none !important; }
 
 .mobile-tabbar.module-tabbar {
-  background: white;
-  border-top: none;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(20px);
+  border-radius: 0;
+  border-top: 1px solid rgba(255,255,255,0.5);
+  box-shadow: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  padding: 0 10px 10px;
   justify-content: flex-start;
   gap: 0;
-  padding: 0 6px;
-  padding-bottom: 10px;
 }
 
 .tab-item {
