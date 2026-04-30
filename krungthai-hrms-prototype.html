@@ -198,6 +198,24 @@ body {
   display: flex;
 }
 
+.device-frame.desktop-overlay {
+  width: 1280px;
+  height: 820px;
+  border-radius: 16px;
+  border: 3px solid rgba(255,255,255,0.6);
+  box-shadow: var(--shadow-xl);
+}
+
+.device-frame.desktop-overlay .desktop-sidebar {
+  display: flex;
+  position: absolute;
+  z-index: 200;
+}
+
+.device-frame.desktop-overlay .main-content {
+  margin-left: 72px;
+}
+
 .sidebar-logo {
   width: 40px;
   height: 40px;
@@ -1755,6 +1773,9 @@ body {
     <button onclick="switchDevice('desktop')" id="btn-desktop">
       <i class="fas fa-desktop"></i> Desktop
     </button>
+    <button onclick="switchDevice('desktop-overlay')" id="btn-desktop-overlay">
+      <i class="fas fa-columns"></i> Overlay
+    </button>
   </div>
 
   <!-- ═══════════════════════════════════════════ -->
@@ -2786,12 +2807,19 @@ function switchDevice(device) {
   const frame = document.getElementById('device-frame');
   const btnMobile = document.getElementById('btn-mobile');
   const btnDesktop = document.getElementById('btn-desktop');
+  const btnOverlay = document.getElementById('btn-desktop-overlay');
 
-  frame.className = 'device-frame ' + device;
+  if (device === 'desktop-overlay') {
+    frame.className = 'device-frame desktop-overlay';
+  } else {
+    frame.className = 'device-frame ' + device;
+  }
+
   btnMobile.classList.toggle('active', device === 'mobile');
   btnDesktop.classList.toggle('active', device === 'desktop');
+  btnOverlay.classList.toggle('active', device === 'desktop-overlay');
 
-  if (device === 'desktop') {
+  if (device === 'desktop' || device === 'desktop-overlay') {
     closeActionSheet();
     closeMobileModule();
     document.getElementById('mobile-tabbar').style.display = 'none';
@@ -2845,7 +2873,7 @@ function openModule(page) {
   const config = moduleConfig[page];
   if (!config) return;
 
-  if (currentDevice === 'desktop') {
+  if (currentDevice === 'desktop' || currentDevice === 'desktop-overlay') {
     document.querySelectorAll('.page-module').forEach(p => p.classList.remove('active'));
     document.getElementById('page-home').style.display = 'none';
     const modulePage = document.getElementById('page-' + page);
@@ -2963,7 +2991,7 @@ function updateDesktopModuleNav() {
   const tabsContainer = document.getElementById('desktop-nav-tabs');
   const config = moduleConfig[currentPage];
 
-  if (currentDevice !== 'desktop' || currentPage === 'home' || !config || !config.tabs) {
+  if ((currentDevice !== 'desktop' && currentDevice !== 'desktop-overlay') || currentPage === 'home' || !config || !config.tabs) {
     nav.classList.remove('visible');
     return;
   }
@@ -3000,6 +3028,24 @@ function toggleSidebar() {
   toggle.innerHTML = sidebarExpanded
     ? '<i class="fas fa-times"></i>'
     : '<i class="fas fa-bars"></i>';
+
+  if (currentDevice === 'desktop-overlay') {
+    var overlayBg = document.getElementById('sidebar-overlay-bg');
+    if (!overlayBg) {
+      overlayBg = document.createElement('div');
+      overlayBg.id = 'sidebar-overlay-bg';
+      overlayBg.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:150;transition:opacity 0.35s ease;';
+      overlayBg.onclick = function() { toggleSidebar(); };
+      document.getElementById('app-container').appendChild(overlayBg);
+    }
+    if (sidebarExpanded) {
+      overlayBg.style.display = 'block';
+      requestAnimationFrame(function() { overlayBg.style.opacity = '1'; });
+    } else {
+      overlayBg.style.opacity = '0';
+      setTimeout(function() { overlayBg.style.display = 'none'; }, 350);
+    }
+  }
 }
 
 let detailOpen = false;
